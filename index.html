@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Portfolio</title>
+  <link rel="icon" type="image/gif" href="head.gif">
+  <style>
+    /* Root variables for light and dark themes */
+    :root {
+      --font-sans: "Poppins", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol";
+
+      /* Light theme colors */
+      --color-bg: #ffffff;
+      --color-text: #6b7280;
+      --color-heading: #111827;
+      --color-primary: #111827;
+      --color-primary-hover: #333333;
+      --color-card-bg: #ffffff;
+      --color-card-shadow: rgba(0, 0, 0, 0.05);
+      --color-border: #e5e7eb;
+
+      /* Dark theme colors (overridden in .dark) */
+      --dark-bg: #121212;
+      --dark-text: #d1d5db;
+      --dark-heading: #f9fafb;
+      --dark-primary: #ef15c4;
+      --dark-card-bg: #1e1e2f;
+      --dark-card-shadow: rgba(239, 21, 196, 0.15);
+      --dark-border: #2c2c3d;
+
+      /* Sizes and spacing */
+      --radius: 0.75rem;
+      --transition-speed: 0.3s;
+      --btn-padding-y: 1rem;
+      --btn-padding-x: 2.5rem;
+    }
+
+    /* Dark mode overrides */
+    .dark {
+      --color-bg: var(--dark-bg);
+      --color-text: var(--dark-text);
+      --color-heading: var(--dark-heading);
+      --color-primary: var(--dark-primary);
+      --color-primary-hover: #c600ca;
+      --color-card-bg: var(--dark-card-bg);
+      --color-card-shadow: var(--dark-card-shadow);
+      --color-border: var(--dark-border);
+    }
+
+    /* Reset and base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      font-size: 18px;
+      line-height: 1.6;
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background-color var(--transition-speed) ease,
+                  color var(--transition-speed) ease;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: color var(--transition-speed) ease,
+                  transform var(--transition-speed) ease;
+    }
+    a:hover,
+    a:focus {
+      color: var(--color-primary);
+      transform: scale(1.05);
+      outline: none;
+    }
+
+    h1, h2, h3 {
+      color: var(--color-heading);
+      font-weight: 700;
+      margin: 0 0 0.5rem 0;
+      line-height: 1.1;
+      letter-spacing: -0.025em;
+    }
+
+    h1 {
+      font-size: 3rem; /* 48px */
+    }
+
+    h2 {
+      font-size: 2rem; /* 32px */
+      margin-top: 2.5rem;
+    }
+
+    p {
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      min-width: 1200px;
+      width: 1200px;
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Sticky header nav */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url('head.gif') center/cover no-repeat;
+      box-shadow: 0 2px 8px var(--color-card-shadow);
+      padding: 1rem 0;
+      transition: background-color var(--transition-speed) ease;
+      user-select: none;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--color-primary);
+      cursor: default;
+      user-select: text;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .nav-links a {
+      color: #111827 !important;
+      font-weight: bold !important;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -0.25rem;
+      width: 0%;
+      height: 2px;
+      background: var(--color-primary);
+      transition: width var(--transition-speed) ease;
+      border-radius: var(--radius);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a:focus::after {
+      width: 100%;
+    }
+
+    /* Theme toggle button */
+    .theme-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.25rem;
+      border-radius: 50%;
+      color: var(--color-primary);
+      transition: background-color var(--transition-speed) ease,
+                  color var(--transition-speed) ease;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .theme-toggle:hover,
+    .theme-toggle:focus {
+      background-color: var(--color-primary);
+      color: var(--color-bg);
+      outline: none;
+      transform: scale(1.1);
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 8rem 1rem 6rem 1rem;
+      background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('sampul.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #ffffff;
+    }
+
+    .hero h1 {
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      user-select: text;
+      color: #ffffff;
+    }
+
+    .hero p {
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+      font-size: 1.125rem;
+      color: #ffffff;
+      margin-bottom: 2.25rem;
+      user-select: text;
+    }
+
+    .btn-primary {
+      background-color: var(--color-primary);
+      color: var(--color-bg);
+      padding: var(--btn-padding-y) var(--btn-padding-x);
+      border-radius: var(--radius);
+      font-weight: 700;
+      font-size: 1.125rem;
+      cursor: pointer;
+      border: none;
+      transition: background-color var(--transition-speed) ease,
+                  transform var(--transition-speed) ease;
+      display: inline-block;
+      user-select: none;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+    }
+
+    .btn-primary:hover,
+    .btn-primary:focus {
+      background-color: var(--color-primary-hover);
+      transform: scale(1.05);
+      outline: none;
+      box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    }
+
+    /* About & Projects Sections */
+    .about-section {
+      padding-top: 4rem;
+      padding-bottom: 6rem;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .card {
+      background-color: var(--color-card-bg);
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: 0 2px 12px var(--color-card-shadow);
+      transition: box-shadow var(--transition-speed) ease,
+                  transform var(--transition-speed) ease;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      user-select: text;
+    }
+
+    .card:hover,
+    .card:focus-within {
+      box-shadow: 0 5px 20px var(--color-card-shadow);
+      transform: translateY(-5px);
+      outline: none;
+    }
+
+    .card h3 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Simple line icon for card heading */
+    .card-icon {
+      width: 24px;
+      height: 24px;
+      fill: var(--color-primary);
+      flex-shrink: 0;
+    }
+
+    .card p {
+      color: var(--color-text);
+      font-size: 1rem;
+      line-height: 1.4;
+      flex-grow: 1;
+    }
+
+    /* Contact Section */
+    #contact {
+      padding-top: 4rem;
+      padding-bottom: 6rem;
+      max-width: 100%; /* atau 1200px sesuai .container */;
+      margin-left: auto;
+      margin-right: auto;
+      user-select: text;
+      background: linear-gradient(rgba(255,255,255,0.85), rgba(255, 255, 255, 0.733)), url('Contact_me.png') center/cover no-repeat;
+    }
+
+    #contact h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #111827; /* warna gelap agar kontras */
+      background: rgba(255,255,255,0.85); /* latar belakang putih transparan */
+      display: inline-block;
+      padding: 0.5rem 2.5rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+
+    #contact .contact-flex {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: flex-start;
+      justify-content: center;
+    }
+    #contact .contact-info {
+      flex: 1 1 260px;
+      min-width: 260px;
+      max-width: 350px;
+    }
+    #contact form {
+      flex: 1 1 320px;
+      min-width: 280px;
+      max-width: 420px;
+      background: var(--color-card-bg);
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: 0 2px 12px var(--color-card-shadow);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    label {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      color: var(--color-primary);
+    }
+
+    input, textarea {
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+      resize: vertical;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 6px var(--color-primary);
+    }
+
+    textarea {
+      min-height: 120px;
+      line-height: 1.5;
+    }
+
+    .btn-submit {
+      background-color: var(--color-primary);
+      color: var(--color-bg);
+      padding: var(--btn-padding-y) var(--btn-padding-x);
+      border-radius: var(--radius);
+      font-weight: 700;
+      font-size: 1.125rem;
+      cursor: pointer;
+      border: none;
+      transition: background-color var(--transition-speed) ease,
+                  transform var(--transition-speed) ease;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.05);
+      user-select: none;
+    }
+
+    .btn-submit:hover,
+    .btn-submit:focus {
+      background-color: var(--color-primary-hover);
+      transform: scale(1.05);
+      outline: none;
+      box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--color-card-bg);
+      padding: 3rem 1rem;
+      text-align: center;
+      border-top: 1px solid var(--color-border);
+      font-size: 1rem;
+      color: var(--color-text);
+      user-select: none;
+    }
+
+    /* Skills List Styling */
+    .skills-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .skill-item {
+      padding: 1rem;
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      transition: transform var(--transition-speed) ease,
+                box-shadow var(--transition-speed) ease;
+    }
+
+    .skill-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--color-card-shadow);
+    }
+
+    .skill-item strong {
+      display: block;
+      color: var(--color-primary);
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .skill-item p {
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    #contact .contact-info,
+    #contact .contact-info * {
+      color: #111827 !important;
+      font-weight: bold !important;
+    }
+
+    /* Animasi fade-slide untuk Contact Me */
+    #contact .contact-info, #contact form {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(.4,0,.2,1), transform 0.8s cubic-bezier(.4,0,.2,1);
+    }
+
+    #contact.visible .contact-info,
+    #contact.visible form {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .astronaut-right {
+      object-fit: cover;
+      object-position: right;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="container" aria-label="Main navigation">
+      <div class="logo" tabindex="0" style="display: flex; align-items: center; gap: 1rem;">
+        <img src="logo_kvn.png" alt="MyPortfolio Logo" style="height: 60px; vertical-align: middle;">
+        <span style="font-size: 2rem; font-weight: bold; color: var(--color-primary); letter-spacing: 2px;">MY PORTOFOLIO</span>
+      </div>
+      <div class="nav-links">
+        <a href="#about" tabindex="0">About Me</a>
+        <a href="#projects" tabindex="0">MY Projects</a>
+        <a href="#contact" tabindex="0">Contact Me</a>
+      </div>
+      <button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle light/dark mode" id="theme-toggle" tabindex="2">
+        🌙
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero container" role="banner" aria-labelledby="hero-title">
+      <h1 id="hero-title">This is my portfolio. I am a virtual assistant lead generation specialist</h1>
+      <p>We build modern, clean websites and apps that not only look stunning, but are also optimized to generate leads, drive sales, and grow your business.</p>
+      <a href="#projects" class="btn-primary" tabindex="0" style="display:inline-block;">Get Started</a>
+    </section>
+
+    <section id="about" class="about-section container" aria-labelledby="about-title">
+      <h2 id="about-title">About Me</h2>
+      <div style="display: flex; align-items: center; gap: 2rem; margin-bottom: 2rem;">
+        <img src="your_photo.jpg" alt="Professional photo of me" style="width: 200px; height: 200px; border-radius: 8px; object-fit: cover; box-shadow: 0 4px 8px var(--color-card-shadow);">
+        <p style="flex: 1; margin: 0;">Hi, I'm Kevin! As a Professional Virtual Assistant and Lead Generation Specialist, I help businesses discover potential prospects through targeted and efficient strategies. From data research and outreach to database management, I implement systematic approaches that deliver measurable results.</p>
+        <p style="flex: 1; margin: 0;">VISION: To become a professional and reliable Virtual Assistant in lead generation, consistently delivering high-quality prospects that drive business growth, while providing strategic and efficient digital support to help clients scale sustainably.</p>
+      </div>
+      <div class="cards" role="list">
+        <article class="card" role="listitem" tabindex="0" aria-label="About my skills and experience">
+          <h3>
+            <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M12 0A12 12 0 1 0 24 12 12.014 12.014 0 0 0 12 0zm0 22a10 10 0 1 1 10-10 10.011 10.011 0 0 1-10 10z"/>
+              <path d="M12 11a3 3 0 1 0 3 3 3.009 3.009 0 0 0-3-3z"/>
+              <path d="M12 3a9 9 0 0 0-9 9 1 1 0 0 0 2 0 7 7 0 0 1 14 0 1 1 0 0 0 2 0 9 9 0 0 0-9-9z"/>
+            </svg>
+            Professional Skills
+          </h3>
+          <div class="skills-list">
+            <div class="skill-item">
+              <strong>🎯 Detail-Oriented</strong>
+              <p>Accurate in verifying and organizing lead data.</p>
+            </div>
+            <div class="skill-item">
+              <strong>💬 Strong Communicator</strong>
+              <p>Clear and professional in written & verbal communication.</p>
+            </div>
+            <div class="skill-item">
+              <strong>⏱️ Time Efficient</strong>
+              <p>Delivers tasks on time with consistent quality.</p>
+            </div>
+            <div class="skill-item">
+              <strong>💻 Tech-Savvy</strong>
+              <p>Basic skills in Python, networking & cybersecurity, Google API.</p>
+            </div>
+            <div class="skill-item">
+              <strong>🔍 Analytical Thinking</strong>
+              <p>Identifies high-potential leads effectively.</p>
+            </div>
+            <div class="skill-item">
+              <strong>📊 Data-Driven</strong>
+              <p>CSDA certified; skilled in lead scoring & segmentation.</p>
+            </div>
+          </div>
+        </article>
+        <article class="card" role="listitem" tabindex="0" aria-label="About my experience">
+          <h3>
+            <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M12 0a12 12 0 1 0 12 12A12.014 12.014 0 0 0 12 0zm7 17a1 1 0 0 1-2 0v-2a5 5 0 0 0-10 0v2a1 1 0 0 1-2 0v-2a7 7 0 0 1 14 0zM12 6a3 3 0 0 0-3 3v1h6V9a3 3 0 0 0-3-3z"/>
+            </svg>
+            Experience
+          </h3>
+          <ul style="list-style: none; padding: 0; margin: 0.5rem 0 0 0;">
+            <li style="margin-bottom: 1.5rem;">
+              <strong style="font-size: 1.1rem; color: var(--color-primary);">Call Center Agent Banking</strong><br>
+              <span style="color: #666;">PT Bank Rakyat Indonesia (Persero) Tbk</span><br>
+              <span style="font-size: 0.95rem; color: #888;">Contract &middot; Aug 2014 – Nov 2015</span>
+              <ul style="margin: 0.5rem 0 0 1.2rem; color: var(--color-text); font-size: 0.98rem;">
+                <li>Serve bank customers and provide solutions to reported problems.</li>
+              </ul>
+            </li>
+            <li>
+              <strong style="font-size: 1.1rem; color: var(--color-primary);">Admin & Computer/Network Maintenance</strong><br>
+              <span style="color: #666;">PT Puri Baja Sejahtera</span><br>
+              <span style="font-size: 0.95rem; color: #888;">Permanent &middot; Jan 2016 – Apr 2025</span>
+              <ul style="margin: 0.5rem 0 0 1.2rem; color: var(--color-text); font-size: 0.98rem;">
+                <li>Input invoice into tax invoice.</li>
+                <li>Account Payable (AP) supervision and control.</li>
+                <li>Company network and computer maintenance.</li>
+              </ul>
+            </li>
+          </ul>
+        </article>
+        <article class="card" role="listitem" tabindex="0" aria-label="About my passion and approach">
+          <h3>
+            <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3a5.44 5.44 0 0 1 4.5 2.5A5.44 5.44 0 0 1 16.5 3C19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+            Education and Certifications
+          </h3>
+          <p>* Graduated: Bachelor of Economics (S.E.) MH. Thamrin University 2015 (GPA: 3.69)</p>
+          <p style="margin-top: 0.5rem; font-size: 1rem; color: var(--color-text);">
+            * Certified Senior Data Analyst (CSDA) – Membuktikan keahlian dalam analisis data, segmentasi, dan lead scoring untuk mendukung strategi bisnis berbasis data.
+          </p>
+          <img src="sertifikat_kevin.jpg" alt="Sertifikat Kevin" style="width: 100%; max-width: 320px; border-radius: 8px; margin-top: 1rem; box-shadow: 0 4px 12px var(--color-card-shadow);" />
+          <img src="sertifikat_kevin_1.jpg" alt="Sertifikat Kevin" style="width: 100%; max-width: 320px; border-radius: 8px; margin-top: 1rem; box-shadow: 0 4px 12px var(--color-card-shadow);" />
+
+          <button onclick="showSertifikatList()" class="btn-primary" style="width: fit-content; margin-top: 1rem;">
+            View All PDF Certificates
+          </button>
+          <div id="sertifikat-list" style="display:none; margin-top:1rem;">
+            <ul style="padding-left: 1.2rem;">
+              <li>
+                <a href="SERTIFIKAT_KEVIN/Kevin Maestro.pdf" target="_blank">Sertifikat Python</a>
+              </li>
+              <li>
+                <a href="SERTIFIKAT_KEVIN/Kevin.pdf" target="_blank">Sertifikat python 1</a>
+              </li>
+              <li>
+                <a href="SERTIFIKAT_KEVIN/Lead Generation.pdf" target="_blank">Sertifikat Strategi Buat Omset Klien Makin Tinggi Dengan Lead Generation</a>
+              </li>
+              <li>
+                <a href="SERTIFIKAT_KEVIN/SEO.pdf" target="_blank">Sertifikat Optimasi Website Klien Pakai SEO Marketing</a>
+              </li>
+              <li>
+                <a href="SERTIFIKAT_KEVIN/Sertifikat Fundamental Algoritma - Kevin - fgKzQ4oI1I.pdf" target="_blank">Sertifikat Fundamental Algoritma</a>
+              </li>
+              <li>
+                <a href="SERTIFIKAT_KEVIN/Sertifikat Fundamental Jaringan Komputer - Kevin - EKvU03MAml.pdf" target="_blank">Sertifikat Jaringan Komputer</a>
+              </li>
+              <li>
+                <a href="SERTIFIKAT_KEVIN/Sertifikat Kehadiran - Kevin.pdf" target="_blank">Sertifikat Kehadiran untuk CSDA</a>
+              </li>
+              <li>
+                <a href="SERTIFIKAT_KEVIN/Sertifikat Fundamental Cyber Security - Kevin - QRsbvdU3yB.pdf" target="_blank">Sertifikat Fundamental Cyber Security</a>
+              </li>
+              <li>
+                <a href="SERTIFIKAT_KEVIN/SGB VA Participation.pdf" target="_blank">Sertifikat SGB VA Participation</a>
+              </li>
+              <!-- Tambahkan link PDF lain di sini sesuai isi folder -->
+            </ul>
+          </div>
+          <script>
+            function showSertifikatList() {
+              var list = document.getElementById('sertifikat-list');
+              list.style.display = list.style.display === 'none' ? 'block' : 'none';
+            }
+          </script>
+        </article>
+      </div>
+    </section>
+
+    <section id="projects" class="about-section container" aria-labelledby="projects-title">
+      <h2 id="projects-title">Projects</h2>
+      <div class="cards" role="list">
+        <article class="card" role="listitem" tabindex="0" aria-label="Project 1: Portfolio website">
+          <h3>
+            <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M4 4h16v2H4zm0 4h10v2H4zm0 4h16v2H4zm0 4h14v2H4z"/>
+            </svg>
+            Internet Research
+          </h3>
+          <li>Market Research: I will gather valuable market data, helping you stay informed about market trends, competitors, and opportunities.</li>
+          <li>Content Research: Detailed research to support your content creation needs, including articles, blog posts, reports, and more.</li>
+          <li>Product Research: Discovering the best products, services, or solutions by evaluating reviews, comparisons, and expert opinions.</li>
+          <li>Travel Planning: I will design personalized travel itineraries, handle all bookings, manage your budget, and conduct in-depth destination research. I'll provide on-the-go support, offer recommendations, and resolve any travel issues for a smooth experience.</li>
+        </article>
+        <article class="card" role="listitem" tabindex="0" aria-label="Project 2: E-commerce app">
+          <h3>
+            <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M4 4h16v2H4zm0 4h10v2H4zm0 4h16v2H4zm0 4h14v2H4z"/>
+            </svg>
+            Competitor Analysis
+          </h3>
+          <li>Product & Service Comparison: I will compare your products and services with those of your competitors, highlighting unique selling points and identifying any gaps.</li>
+          <li>Pricing Strategies: I will analyze competitors' pricing strategies to help you position your offerings competitively and maximize profitability.</li>
+          <li>Actionable Insights: Provide actionable insights and recommendations to enhance your competitive advantage, improve market positioning, and drive business growth.</li>
+          <li>Continuous Monitoring: Continuously monitor competitor activities to keep you informed of any changes or new developments in the market.</li>
+          <li>Customized Reports: Tailor reports to present findings clearly and concisely, helping you make informed strategic decisions.</li>
+          <h3>Work Sample</h3>
+          <p>💡 I provide competitor analysis, including product comparisons, pricing reviews, and actionable insights to enhance market positioning and drive growth. Click the picture for the full report.</p>
+          <a href="https://docs.google.com/spreadsheets/d/1NUasBw2XHvsyqNWMfe8IIk6fBIu2gYmB27Fwzjo9B5s/edit?gid=870772473#gid=870772473" target="_blank" style="display:block; margin-bottom:1rem;">
+            <img src="Work_sample.jpg" alt="Work Sample" style="width:100%; max-width:340px; border-radius:12px; box-shadow:0 4px 16px rgba(0,0,0,0.10); margin:auto;">
+          </a>
+          <a href="https://docs.google.com/spreadsheets/d/1NUasBw2XHvsyqNWMfe8IIk6fBIu2gYmB27Fwzjo9B5s/edit?gid=870772473#gid=870772473" target="_blank" class="btn-primary" style="margin-top:0.5rem; display:inline-block;">
+            For more complete information, PLEASE CLICK HERE!!
+          </a>
+        </article>
+        <article class="card" role="listitem" tabindex="0" aria-label="Project 2: E-commerce app">
+          <h3>
+            <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2a2 2 0 0 0 0-4zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2a2 2 0 0 0 0-4zM7.16 14.26l.84-2.66H17v-2H8.64l-.64-2H4v2H2v2h2l3.6 7.59-1.35 2.45c-.2.37-.25.8-.14 1.2.22.76 1 1.25 1.8 1.05.44-.12.83-.44 1.01-.86L17 7h2v-2H7v2z"/>
+            </svg>
+            Strategic Execution Overview
+          </h3>
+          <p style="all: unset; display: block; margin: 0 0 0.2rem 0; font-weight: 600; line-height: 1.3;">
+            Lead Generation Strategy for Dental Clinics</p>
+          <ul style="all: unset; display: block; margin: 0 0 0.7rem 1.2rem; padding-left: 1rem; font-size: 1rem; line-height: 1.4; color: var(--color-text);">
+            <li>Competitor research and SWOT analysis.</li>
+            <li>Formulation of educational content strategy & family promotion.</li>
+            <li>3-month target: increase in followers, reviews, and monthly leads.</li>
+            <li>Result: plan can be implemented directly by the marketing team.</li>
+            <li>Role: Copywriting & CTA element design. Focus: Patient-friendly language + WhatsApp call-to-action & booking.</li>
+          </ul>
+          <a href="https://doktergigitangerang.my.canva.site/" target="_blank" style="display:block; margin-bottom:0.5rem;">
+            <img src="Lead_Generation_Strategy.jpg" alt="Lead Generation Strategy" style="width:100%; max-width:340px; border-radius:12px; box-shadow:0 4px 16px rgba(0,0,0,0.10); margin:auto;">
+          </a>
+          <a href="https://doktergigitangerang.my.canva.site/" target="_blank" class="btn-primary" style="margin-top:0; display:inline-block;">
+            For more complete information, PLEASE CLICK HERE!!
+          </a>
+        </article>
+        <article class="card" role="listitem" tabindex="0" aria-label="Project 2: E-commerce app">
+          <h3>
+            <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2a2 2 0 0 0 0-4zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2a2 2 0 0 0 0-4zM7.16 14.26l.84-2.66H17v-2H8.64l-.64-2H4v2H2v2h2l3.6 7.59-1.35 2.45c-.2.37-.25.8-.14 1.2.22.76 1 1.25 1.8 1.05.44-.12.83-.44 1.01-.86L17 7h2v-2H7v2z"/>
+            </svg>
+            Local SEO & Lead Generation for Healthcare Business
+          </h3>
+          <p style="all: unset; display: block; margin: 0 0 0.2rem 0; font-weight: 600; line-height: 1.3;">
+            Client: Total Dental Care – Dental Clinic Tangerang My Role: SEO Strategist & Lead Generation Specialist</p>
+          <ul style="all: unset; display: block; margin: 0 0 0.7rem 1.2rem; padding-left: 1rem; font-size: 1rem; line-height: 1.4; color: var(--color-text);">
+            <li>🔍 Keyword Research: Using tools like Ubersuggest to identify relevant primary and long-tail keywords to attract local patients in Tangerang.</li>
+            <li>📝 SEO Content Mapping: Composing content ideas such as educational articles, comparison services, and parenting tips about children's dental health.</li>
+            <li>💡 On-Page SEO Strategy: Writing search engine-friendly meta titles and meta descriptions, as well as placing internal links between services.</li>
+            <li>📱 CTA Optimization and Mobile Responsiveness: Adding easy-to-click booking and WhatsApp buttons and ensuring the website page design is mobile-friendly.</li>
+          </ul>
+          <a href="https://drive.google.com/file/d/1EYzuUgt8TGEib6Ue-xK4P3nB4L_e8vCw/view" target="_blank" style="display:block; margin-bottom:0.5rem;">
+            <img src="OKE.jpg" alt="Lead Generation Strategy" style="width:100%; max-width:340px; border-radius:12px; box-shadow:0 4px 16px rgba(0,0,0,0.10); margin:auto;">
+          </a>
+          <a href="https://drive.google.com/file/d/1EYzuUgt8TGEib6Ue-xK4P3nB4L_e8vCw/view" target="_blank" class="btn-primary" style="margin-top:0; display:inline-block;">
+            For more complete information, PLEASE CLICK HERE!!
+          </a>
+        </article>
+        <article class="card" role="listitem" tabindex="0" aria-label="Project 2: E-commerce app">
+          <h3>
+            <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2a2 2 0 0 0 0-4zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2a2 2 0 0 0 0-4zM7.16 14.26l.84-2.66H17v-2H8.64l-.64-2H4v2H2v2h2l3.6 7.59-1.35 2.45c-.2.37-.25.8-.14 1.2.22.76 1 1.25 1.8 1.05.44-.12.83-.44 1.01-.86L17 7h2v-2H7v2z"/>
+            </svg>
+            Project Management Services
+          </h3>
+          <p style="all: unset; display: block; margin: 0 0 0.2rem 0; font-weight: 600; line-height: 1.3;">
+            As a project manager, I specialize in turning concepts into reality. With precision and strategic thinking, I navigate project complexities to ensure successful outcomes. Welcome to my portfolio, where you'll see how my hands-on approach drives project success. Tools that I used for project management: Trello, Spreadsheet.</p>
+          <ul style="all: unset; display: block; margin: 0 0 0.7rem 1.2rem; padding-left: 1rem; font-size: 1rem; line-height: 1.4; color: var(--color-text);">
+            <li>Task Management: Organizing and prioritizing tasks, assigning responsibilities, and tracking progress.</li>
+            <li>Budget Management: Creating, monitoring, and managing project budgets, including tracking expenses and forecasting costs.</li>
+            <li>Quality Assurance: Monitoring project deliverables to ensure they meet quality standards and align with project requirements.</li>
+          </ul>
+          <a href="https://docs.google.com/spreadsheets/d/1tu-qRZUe84zITR-AnOeNsxVNp64AvwCPZJTbPitGh4Y/edit?gid=437609284#gid=437609284" target="_blank" style="display:block; margin-bottom:0.5rem;">
+            <img src="Project_1.jpg" alt="Lead Generation Strategy" style="width:100%; max-width:340px; border-radius:12px; box-shadow:0 4px 16px rgba(0,0,0,0.10); margin:auto;">
+          </a>
+          <a href="https://docs.google.com/spreadsheets/d/1tu-qRZUe84zITR-AnOeNsxVNp64AvwCPZJTbPitGh4Y/edit?gid=148811458#gid=148811458" target="_blank" style="display:block; margin-bottom:0.5rem;">
+            <img src="project_2.jpg" alt="Lead Generation Strategy" style="width:100%; max-width:340px; border-radius:12px; box-shadow:0 4px 16px rgba(0,0,0,0.10); margin:auto;">
+          </a>
+          <a href="https://docs.google.com/spreadsheets/d/1tu-qRZUe84zITR-AnOeNsxVNp64AvwCPZJTbPitGh4Y/edit?gid=437609284#gid=437609284" target="_blank" class="btn-primary" style="margin-top:0; display:inline-block;">
+            For more complete information, PLEASE CLICK HERE!!
+          </a>
+          <a href="https://trello.com/b/XEyTNKXi/womens-day-celebration-for-vip-clients-in-jakarta" target="_blank" style="display:block; margin-bottom:0.5rem;">
+            <img src="trello.jpg" alt="Lead Generation Strategy" style="width:100%; max-width:340px; border-radius:12px; box-shadow:0 4px 16px rgba(0,0,0,0.10); margin:auto;">
+          </a>
+          <a href="https://trello.com/b/XEyTNKXi/womens-day-celebration-for-vip-clients-in-jakarta" target="_blank" class="btn-primary" style="margin-top:0; display:inline-block;">
+            For more complete information, PLEASE CLICK HERE!!
+          </a>
+        </article>
+        <article class="card" role="listitem" tabindex="0" aria-label="Project 3: Blog platform">
+          <h3>
+            <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M3 4h18v2H3zm0 4h13v2H3zm0 4h18v2H3zm0 4h13v2H3z"/>
+            </svg>
+            Python
+          </h3>
+          <p>I managed to create a simple calculator, a simple sales program, and create a simple application to download attachment files from email automatically using Google API..</p>
+          <a href="https://github.com/Kevin1446" target="_blank" class="btn-primary" style="margin-top:0; display:inline-block;">
+            For more complete information, PLEASE CLICK HERE!!
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="about-section container" aria-labelledby="contact-title">
+      <h2 id="contact-title">Contact Me</h2>
+      <div class="contact-flex">
+        <!-- Kiri: Info kontak -->
+        <div class="contact-info">
+          <p style="font-weight: bold; margin-bottom: 0.5rem;">
+            Thank you for taking a moment to explore my portfolio.
+          </p>
+          <p style="margin-bottom: 1.5rem;">
+            If you're looking to elevate your business with proven expertise, I'd be honored to collaborate and help drive sustainable growth.
+          </p>
+          <div style="margin-bottom: 2rem;">
+            <strong>Contact:</strong>
+            <ul style="list-style: none; padding: 0; margin: 0.5rem 0 0 0;">
+              <li style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <span style="display: inline-flex; width: 22px; height: 22px;">
+                  <!-- WhatsApp SVG -->
+                  <svg viewBox="0 0 32 32" width="22" height="22" fill="#25D366" aria-hidden="true"><path d="M16 3C9.373 3 4 8.373 4 15c0 2.65.86 5.11 2.34 7.13L4 29l7.13-2.34A11.93 11.93 0 0 0 16 27c6.627 0 12-5.373 12-12S22.627 3 16 3zm0 22c-1.98 0-3.84-.58-5.41-1.58l-.39-.25-4.23 1.39 1.39-4.23-.25-.39A9.96 9.96 0 0 1 6 15c0-5.514 4.486-10 10-10s10 4.486 10 10-4.486 10-10 10zm5.13-7.47c-.28-.14-1.65-.81-1.9-.9-.25-.09-.43-.14-.61.14-.18.28-.7.9-.86 1.08-.16.18-.32.2-.6.07-.28-.14-1.18-.44-2.25-1.4-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.12-.12.28-.32.42-.48.14-.16.18-.28.28-.46.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01-.18 0-.48.07-.73.34-.25.28-.97.95-.97 2.32 0 1.37.99 2.7 1.13 2.89.14.18 1.95 2.98 4.73 4.06.66.28 1.18.45 1.58.58.66.21 1.26.18 1.73.11.53-.08 1.65-.67 1.89-1.32.23-.65.23-1.2.16-1.32-.07-.12-.25-.18-.53-.32z"/></svg>
+                </span>
+                <a href="https://wa.me/+6287878710325" target="_blank">+62 878-7871-0325</a>
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <span style="display: inline-flex; width: 22px; height: 22px;">
+                  <!-- Email SVG -->
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="#EA4335" aria-hidden="true"><path d="M12 13.065 2.4 6.6A2 2 0 0 1 4 6h16a2 2 0 0 1 1.6.6z"/><path d="M21.6 7.8 12 14.935 2.4 7.8V18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2z"/></svg>
+                </span>
+                <a href="rookieoftheday14@gmail.com">rookieoftheday14@gmail.com</a>
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <span style="display: inline-flex; width: 22px; height: 22px;">
+                  <!-- LinkedIn SVG -->
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="#0077B5" aria-hidden="true"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm15.5 10.28h-3v-4.5c0-1.07-.02-2.44-1.49-2.44-1.49 0-1.72 1.16-1.72 2.36v4.58h-3v-9h2.89v1.23h.04c.4-.75 1.38-1.54 2.84-1.54 3.04 0 3.6 2 3.6 4.59v4.72z"/></svg>
+                </span>
+                <a href="https://www.linkedin.com/in/kevin-s-e-csda-a74aa2182/" target="_blank">www.linkedin.com/in/kevin-s-e-csda-a74aa2182</a>
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.5rem;">
+                <span style="display: inline-flex; width: 22px; height: 22px;">
+                  <!-- Instagram SVG -->
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="#E4405F" aria-hidden="true"><path d="M12 2.2c3.2 0 3.584.012 4.85.07 1.17.056 1.97.24 2.43.41.59.22 1.01.48 1.45.92.44.44.7.86.92 1.45.17.46.354 1.26.41 2.43.058 1.266.07 1.65.07 4.85s-.012 3.584-.07 4.85c-.056 1.17-.24 1.97-.41 2.43-.22.59-.48 1.01-.92 1.45-.44.44-.86.7-1.45.92-.46.17-1.26.354-2.43.41-1.266.058-1.65.07-4.85.07s-3.584-.012-4.85-.07c-1.17-.056-1.97-.24-2.43-.41-.59-.22-1.01-.48-1.45-.92-.44-.44-.7-.86-.92-1.45-.17-.46-.354-1.26-.41-2.43C2.212 15.634 2.2 15.25 2.2 12s.012-3.584.07-4.85c.059-1.29.25-2.18.53-2.95.29-.8.67-1.48 1.34-2.15.67-.67 1.35-1.05 2.15-1.34.77-.28 1.66-.47 2.95-.53C8.416 2.212 8.8 2.2 12 2.2zm0-2.2C8.736 0 8.332.012 7.052.07c-1.29.059-2.18.25-2.95.53-.8.29-1.48.67-2.15 1.34-.67.67-1.05 1.35-1.34 2.15-.28.77-.47 1.66-.53 2.95C.012 8.332 0 8.736 0 12c0 3.264.012 3.668.07 4.948.059 1.29.25 2.18.53 2.95.29.8.67 1.48 1.34 2.15.67.67 1.35 1.05 2.15 1.34.77.28 1.66.47 2.95.53C8.332 23.988 8.736 24 12 24s3.668-.012 4.948-.07c1.29-.059 2.18-.25 2.95-.53.8-.29 1.48-.67 2.15-1.34.67-.67 1.05-1.35 1.34-2.15.28-.77.47-1.66.53-2.95.058-1.28.07-1.684.07-4.948s-.012-3.668-.07-4.948c-.059-1.29-.25-2.18-.53-2.95-.29-.8-.67-1.48-1.34-2.15-.67-.67-1.35-1.05-2.15-1.34-.77-.28-1.66-.47-2.95-.53C15.668.012 15.264 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm7.844-10.406a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg>
+                </span>
+                <a href="https://www.instagram.com/kevinaja.virtualassistant/" target="_blank">@kevinaja.virtualassistant</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- Kanan: Form kontak -->
+        <form>
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your full name" required aria-required="true" />
+
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="Your email address" required aria-required="true" />
+
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Your message" required aria-required="true"></textarea>
+
+          <button type="submit" class="btn-submit">Send Message</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="container">
+      <p>© 2025 MyPortfolio By Kevin. Built with care and passion.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Theme toggle (light/dark) with localStorage persistence
+    (function() {
+      const themeToggle = document.getElementById('theme-toggle');
+      const rootElement = document.documentElement;
+
+      // Initialize theme based on localStorage or system preference
+      const storedTheme = localStorage.getItem('theme');
+      function applyTheme(theme) {
+        if (theme === 'dark') {
+          rootElement.classList.add('dark');
+          themeToggle.textContent = '☀️';
+          themeToggle.setAttribute('aria-label', 'Switch to light mode');
+          themeToggle.setAttribute('title', 'Switch to light mode');
+        } else {
+          rootElement.classList.remove('dark');
+          themeToggle.textContent = '🌙';
+          themeToggle.setAttribute('aria-label', 'Switch to dark mode');
+          themeToggle.setAttribute('title', 'Switch to dark mode');
+        }
+      }
+
+      if (storedTheme) {
+        applyTheme(storedTheme);
+      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        applyTheme('dark');
+      } else {
+        applyTheme('light');
+      }
+
+      themeToggle.addEventListener('click', () => {
+        const isDark = rootElement.classList.contains('dark');
+        const newTheme = isDark ? 'light' : 'dark';
+        applyTheme(newTheme);
+        localStorage.setItem('theme', newTheme);
+      });
+    })();
+  </script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var contact = document.getElementById('contact');
+    if (contact) {
+      contact.classList.add('visible');
+    }
+  });
+  </script>
+<img src="astronaut.gif" alt="Astronaut Right"
+  style="position: fixed; right: 0; top: 60%; width: 350px; max-width: 100vw; z-index: 1000; pointer-events: none; opacity: 0.85; object-fit: cover; object-position: right; transform: scaleX(1);" />
+</body>
+</html>
+
