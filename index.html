@@ -106,8 +106,7 @@
     /* Container */
     .container {
       max-width: 1200px;
-      min-width: 1200px;
-      width: 1200px;
+      width: 100%;
       padding-left: 1.25rem;
       padding-right: 1.25rem;
       margin-left: auto;
@@ -482,6 +481,214 @@
       object-fit: cover;
       object-position: right;
     }
+
+    /* Non-selectable text */
+    selector {
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    .red-text {
+      color: red;
+    }
+
+    /* Testimonial Slider */
+    .testimonial-slider {
+      position: relative;
+      max-width: 600px;
+      margin: 0 auto 2rem auto;
+      min-height: 320px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .testimonial-slide {
+      position: absolute;
+      opacity: 0;
+      transform: scale(0.96) translateY(30px);
+      transition: opacity 0.6s cubic-bezier(.4,0,.2,1), transform 0.6s cubic-bezier(.4,0,.2,1);
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      pointer-events: none;
+    }
+
+    .testimonial-slide.active {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+      pointer-events: auto;
+      position: relative;
+    }
+
+    .testimonial-photo {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 1.5rem;
+      border: 3px solid var(--color-primary);
+      box-shadow: 0 2px 12px var(--color-card-shadow);
+    }
+
+    .testimonial-slide blockquote {
+      background: var(--color-card-bg);
+      border-radius: 1.5rem;
+      padding: 2rem 1.5rem 1.5rem 1.5rem;
+      box-shadow: 0 2px 12px var(--color-card-shadow);
+      text-align: center;
+      margin: 0;
+      font-size: 1.1rem;
+      color: var(--color-text);
+      position: relative;
+    }
+
+    .testimonial-slide blockquote:before {
+      content: "“";
+      font-size: 3rem;
+      color: var(--color-primary);
+      position: absolute;
+      left: 1.2rem;
+      top: 0.5rem;
+      opacity: 0.2;
+    }
+
+    .testimonial-slide footer {
+      margin-top: 1.5rem;
+      font-size: 1rem;
+      color: var(--color-primary);
+    }
+
+    .slider-nav {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
+    .slider-btn {
+      background: var(--color-primary);
+      color: var(--color-bg);
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 2px 8px var(--color-card-shadow);
+      transition: background 0.2s, transform 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slider-btn:hover, .slider-btn:focus {
+      background: var(--color-primary-hover);
+      transform: scale(1.1);
+      outline: none;
+    }
+
+    /* Project Slider */
+    .project-slider {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius);
+      box-shadow: 0 2px 12px var(--color-card-shadow);
+    }
+
+    .project-slider .cards {
+      display: flex;
+      transition: transform var(--transition-speed) ease;
+    }
+
+    .project-slider .card {
+      min-width: 100%;
+      flex: 0 0 auto;
+    }
+
+    .project-slider-modern {
+      position: relative;
+      max-width: 500px;
+      margin: 0 auto 2rem auto;
+      min-height: 350px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .project-slide {
+      position: absolute;
+      opacity: 0;
+      transform: scale(0.96) translateY(30px);
+      transition: opacity 0.6s cubic-bezier(.4,0,.2,1), transform 0.6s cubic-bezier(.4,0,.2,1);
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      pointer-events: none;
+      background: var(--color-card-bg, #fff);
+      border-radius: 1.5rem;
+      box-shadow: 0 2px 12px var(--color-card-shadow, #0001);
+      padding: 2rem 1.5rem 1.5rem 1.5rem;
+      text-align: center;
+    }
+
+    .project-slide.active {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+      pointer-events: auto;
+      position: relative;
+    }
+
+    .project-photo {
+      width: 120px;
+      height: 80px;
+      border-radius: 1rem;
+      object-fit: cover;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 12px var(--color-card-shadow, #0001);
+    }
+
+    .project-slide h3 {
+      margin: 0 0 0.5rem 0;
+      color: var(--color-primary, #007bff);
+    }
+
+    .project-slide p {
+      margin: 0 0 1rem 0;
+      color: var(--color-text, #333);
+    }
+
+    .project-slider-nav {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .project-slider-btn {
+      background: var(--color-primary, #007bff);
+      color: var(--color-bg, #fff);
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 2px 8px var(--color-card-shadow, #0001);
+      transition: background 0.2s, transform 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .project-slider-btn:hover, .project-slider-btn:focus {
+      background: var(--color-primary-hover, #0056b3);
+      transform: scale(1.1);
+      outline: none;
+    }
   </style>
 </head>
 <body>
@@ -494,6 +701,7 @@
       <div class="nav-links">
         <a href="#about" tabindex="0">About Me</a>
         <a href="#projects" tabindex="0">MY Projects</a>
+        <a href="#testimonial" tabindex="0">Testimonial</a>
         <a href="#contact" tabindex="0">Contact Me</a>
       </div>
       <button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle light/dark mode" id="theme-toggle" tabindex="2">
@@ -641,32 +849,36 @@
     </section>
 
     <section id="projects" class="about-section container" aria-labelledby="projects-title">
-      <h2 id="projects-title">Projects</h2>
+      <h2 id="projects-title">My Projects</h2>
       <div class="cards" role="list">
         <article class="card" role="listitem" tabindex="0" aria-label="Project 1: Portfolio website">
           <h3>
             <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path d="M4 4h16v2H4zm0 4h10v2H4zm0 4h16v2H4zm0 4h14v2H4z"/>
+              <path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2a2 2 0 0 0 0-4zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2a2 2 0 0 0 0-4zM7.16 14.26l.84-2.66H17v-2H8.64l-.64-2H4v2H2v2h2l3.6 7.59-1.35 2.45c-.2.37-.25.8-.14 1.2.22.76 1 1.25 1.8 1.05.44-.12.83-.44 1.01-.86L17 7h2v-2H7v2z"/>
             </svg>
             Internet Research
           </h3>
-          <li>Market Research: I will gather valuable market data, helping you stay informed about market trends, competitors, and opportunities.</li>
-          <li>Content Research: Detailed research to support your content creation needs, including articles, blog posts, reports, and more.</li>
-          <li>Product Research: Discovering the best products, services, or solutions by evaluating reviews, comparisons, and expert opinions.</li>
-          <li>Travel Planning: I will design personalized travel itineraries, handle all bookings, manage your budget, and conduct in-depth destination research. I'll provide on-the-go support, offer recommendations, and resolve any travel issues for a smooth experience.</li>
+          <ul>
+            <li>Market Research: I will gather valuable market data, helping you stay informed about market trends, competitors, and opportunities.</li>
+            <li>Content Research: Detailed research to support your content creation needs, including articles, blog posts, reports, and more.</li>
+            <li>Product Research: Discovering the best products, services, or solutions by evaluating reviews, comparisons, and expert opinions.</li>
+            <li>Travel Planning: I will design personalized travel itineraries, handle all bookings, manage your budget, and conduct in-depth destination research. I'll provide on-the-go support, offer recommendations, and resolve any travel issues for a smooth experience.</li>
+          </ul>
         </article>
         <article class="card" role="listitem" tabindex="0" aria-label="Project 2: E-commerce app">
           <h3>
             <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path d="M4 4h16v2H4zm0 4h10v2H4zm0 4h16v2H4zm0 4h14v2H4z"/>
+              <path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2a2 2 0 0 0 0-4zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2a2 2 0 0 0 0-4zM7.16 14.26l.84-2.66H17v-2H8.64l-.64-2H4v2H2v2h2l3.6 7.59-1.35 2.45c-.2.37-.25.8-.14 1.2.22.76 1 1.25 1.8 1.05.44-.12.83-.44 1.01-.86L17 7h2v-2H7v2z"/>
             </svg>
             Competitor Analysis
           </h3>
-          <li>Product & Service Comparison: I will compare your products and services with those of your competitors, highlighting unique selling points and identifying any gaps.</li>
-          <li>Pricing Strategies: I will analyze competitors' pricing strategies to help you position your offerings competitively and maximize profitability.</li>
-          <li>Actionable Insights: Provide actionable insights and recommendations to enhance your competitive advantage, improve market positioning, and drive business growth.</li>
-          <li>Continuous Monitoring: Continuously monitor competitor activities to keep you informed of any changes or new developments in the market.</li>
-          <li>Customized Reports: Tailor reports to present findings clearly and concisely, helping you make informed strategic decisions.</li>
+          <ul>
+            <li>Product & Service Comparison: I will compare your products and services with those of your competitors, highlighting unique selling points and identifying any gaps.</li>
+            <li>Pricing Strategies: I will analyze competitors' pricing strategies to help you position your offerings competitively and maximize profitability.</li>
+            <li>Actionable Insights: Provide actionable insights and recommendations to enhance your competitive advantage, improve market positioning, and drive business growth.</li>
+            <li>Continuous Monitoring: Continuously monitor competitor activities to keep you informed of any changes or new developments in the market.</li>
+            <li>Customized Reports: Tailor reports to present findings clearly and concisely, helping you make informed strategic decisions.</li>
+          </ul>
           <h3>Work Sample</h3>
           <p>💡 I provide competitor analysis, including product comparisons, pricing reviews, and actionable insights to enhance market positioning and drive growth. Click the picture for the full report.</p>
           <a href="https://docs.google.com/spreadsheets/d/1NUasBw2XHvsyqNWMfe8IIk6fBIu2gYmB27Fwzjo9B5s/edit?gid=870772473#gid=870772473" target="_blank" style="display:block; margin-bottom:1rem;">
@@ -681,7 +893,7 @@
             <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
               <path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2a2 2 0 0 0 0-4zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2a2 2 0 0 0 0-4zM7.16 14.26l.84-2.66H17v-2H8.64l-.64-2H4v2H2v2h2l3.6 7.59-1.35 2.45c-.2.37-.25.8-.14 1.2.22.76 1 1.25 1.8 1.05.44-.12.83-.44 1.01-.86L17 7h2v-2H7v2z"/>
             </svg>
-            Strategic Execution Overview
+          Strategic Execution Overview
           </h3>
           <p style="all: unset; display: block; margin: 0 0 0.2rem 0; font-weight: 600; line-height: 1.3;">
             Lead Generation Strategy for Dental Clinics</p>
@@ -754,7 +966,7 @@
         <article class="card" role="listitem" tabindex="0" aria-label="Project 3: Blog platform">
           <h3>
             <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path d="M3 4h18v2H3zm0 4h13v2H3zm0 4h18v2H3zm0 4h13v2H3z"/>
+              <path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2a2 2 0 0 0 0-4zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2a2 2 0 0 0 0-4zM7.16 14.26l.84-2.66H17v-2H8.64l-.64-2H4v2H2v2h2l3.6 7.59-1.35 2.45c-.2.37-.25.8-.14 1.2.22.76 1 1.25 1.8 1.05.44-.12.83-.44 1.01-.86L17 7h2v-2H7v2z"/>
             </svg>
             Python
           </h3>
@@ -762,13 +974,54 @@
             Here I also managed to create a project using Python, including:</p>
           <ul style="all: unset; display: block; margin: 0 0 0.7rem 1.2rem; padding-left: 1rem; font-size: 1rem; line-height: 1.4; color: var(--color-text);">
             <li>I created a simple sales program.</li>
-            <li>I created an application called "KALKULATOR CANGGIH" where this calculator can calculate basic operations such as (+-x:), trigonometric operations, logarithms, conversions (temperature, area, and volume conversions), and exchange rates (exchange rates are still under development).</li>
+            <li>I created an application called "KALKULATOR CANGGIH" where this calculator can calculate basic operations such as (+-x:), trigonometric operations, logarithms, conversions (temperature, area, and volume
             <li>I also managed to create a program to download the desired attachment file from email using Google API and the result goes directly to the desired folder. The download system can use Wifi, WLAN, and corporate proxy.</li>
           </ul>
           <a href="https://github.com/Kevin1446" target="_blank" class="btn-primary" style="margin-top:0; display:inline-block;">
             For more complete information, PLEASE CLICK HERE!!
           </a>
         </article>
+      </div>
+    </section>
+
+    <!-- Testimonial Slider -->
+    <section id="testimonial" class="container" aria-labelledby="testimonial-title" style="padding-top:4rem; padding-bottom:6rem;">
+      <h2 id="testimonial-title" style="text-align:center; margin-bottom:2rem;">Testimonials</h2>
+      <div class="testimonial-slider">
+        <div class="testimonial-slide active">
+          <img src="foto_testi1.jpg" alt="Client 1" class="testimonial-photo" />
+          <blockquote>
+            <p>“Working with Kevin has been both a joy and a learning experience. Kevin is not just smart and professional, but also incredibly open-minded and genuinely curious about other people’s perspectives. If you’re looking for someone who’s not just great at what they do, but also a great person to collaborate and grow with, I can’t recommend Kevin enough.”</p>
+            <footer>
+              <strong>Mawar Meini Surentu</strong><br>
+              <span></span>
+            </footer>
+          </blockquote>
+        </div>
+        <div class="testimonial-slide">
+          <img src="foto2.jpg" alt="Client 2" class="testimonial-photo" />
+          <blockquote>
+            <p>“Sangat profesional dan responsif. Hasil kerja Kevin sangat memuaskan!”</p>
+            <footer>
+              <strong>Budi Santoso</strong><br>
+              <span>Founder, Startup XYZ</span>
+            </footer>
+          </blockquote>
+        </div>
+        <div class="testimonial-slide">
+          <img src="foto3.jpg" alt="Client 3" class="testimonial-photo" />
+          <blockquote>
+            <p>“Highly recommended for anyone who needs a reliable assistant.”</p>
+            <footer>
+              <strong>Lisa Wong</strong><br>
+              <span>Marketing Lead, ABC Corp</span>
+            </footer>
+          </blockquote>
+        </div>
+      </div>
+      <div class="slider-nav">
+        <button class="slider-btn slider-prev" aria-label="Previous testimonial">&#8592;</button>
+        <button class="slider-btn slider-next" aria-label="Next testimonial">&#8594;</button>
       </div>
     </section>
 
@@ -798,7 +1051,7 @@
                   <!-- Email SVG -->
                   <svg viewBox="0 0 24 24" width="22" height="22" fill="#EA4335" aria-hidden="true"><path d="M12 13.065 2.4 6.6A2 2 0 0 1 4 6h16a2 2 0 0 1 1.6.6z"/><path d="M21.6 7.8 12 14.935 2.4 7.8V18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2z"/></svg>
                 </span>
-                <a href="rookieoftheday14@gmail.com">rookieoftheday14@gmail.com</a>
+                <a href="mailto:rookieoftheday14@gmail.com">rookieoftheday14@gmail.com</a>
               </li>
               <li style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
                 <span style="display: inline-flex; width: 22px; height: 22px;">
@@ -818,7 +1071,7 @@
           </div>
         </div>
         <!-- Kanan: Form kontak -->
-        <form>
+        <form onsubmit="alert('Thank you for your message!'); return false;">
           <label for="name">Name</label>
           <input type="text" id="name" name="name" placeholder="Your full name" required aria-required="true" />
 
@@ -866,17 +1119,100 @@
         applyTheme(storedTheme);
       } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
         applyTheme('dark');
-      } else {
-        applyTheme('light');
       }
 
-      themeToggle.addEventListener('click', () => {
-        const isDark = rootElement.classList.contains('dark');
-        const newTheme = isDark ? 'light' : 'dark';
+      themeToggle.addEventListener('click', function() {
+        const currentTheme = rootElement.classList.contains('dark') ? 'dark' : 'light';
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
         applyTheme(newTheme);
         localStorage.setItem('theme', newTheme);
       });
     })();
+  </script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const slider = document.querySelector('.project-slider .cards');
+    const cards = document.querySelectorAll('.project-slider .card');
+    const prevBtn = document.querySelector('.project-slider-btn.project-slider-prev');
+    const nextBtn = document.querySelector('.project-slider-btn.project-slider-next');
+    let currentIndex = 0;
+
+    function updateSlider() {
+      slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+
+    prevBtn.addEventListener('click', function() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        updateSlider();
+      }
+    });
+
+    nextBtn.addEventListener('click', function() {
+      if (currentIndex < cards.length - 1) {
+        currentIndex++;
+        updateSlider();
+      }
+    });
+
+    // Optional: swipe support for mobile
+    let startX = null;
+    slider.addEventListener('touchstart', function(e) {
+      startX = e.touches[0].clientX;
+    });
+    slider.addEventListener('touchend', function(e) {
+      if (startX === null) return;
+      let endX = e.changedTouches[0].clientX;
+      if (endX - startX > 50 && currentIndex > 0) {
+        currentIndex--;
+        updateSlider();
+      } else if (startX - endX > 50 && currentIndex < cards.length - 1) {
+        currentIndex++;
+        updateSlider();
+      }
+      startX = null;
+    });
+
+    updateSlider();
+  });
+  </script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const slides = document.querySelectorAll('.project-slider-modern .project-slide');
+    const prevBtn = document.querySelector('.project-slider-btn.project-slider-prev');
+    const nextBtn = document.querySelector('.project-slider-btn.project-slider-next');
+    let current = 0;
+    let timer;
+
+    function showSlide(idx) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === idx);
+      });
+    }
+
+    function nextSlide() {
+      current = (current + 1) % slides.length;
+      showSlide(current);
+      resetTimer();
+    }
+
+    function prevSlide() {
+      current = (current - 1 + slides.length) % slides.length;
+      showSlide(current);
+      resetTimer();
+    }
+
+    function resetTimer() {
+      clearInterval(timer);
+      timer = setInterval(nextSlide, 6000);
+    }
+
+    prevBtn.addEventListener('click', prevSlide);
+    nextBtn.addEventListener('click', nextSlide);
+
+    showSlide(current);
+    timer = setInterval(nextSlide, 6000);
+  });
   </script>
   <script>
   document.addEventListener('DOMContentLoaded', function() {
