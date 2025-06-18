@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>My Portfolio</title>
   <link rel="icon" type="image/gif" href="head.gif">
   <style>
@@ -689,6 +689,49 @@
       transform: scale(1.1);
       outline: none;
     }
+
+    /* Responsive for project & testimonial slider */
+    @media (max-width: 600px) {
+      .project-slider-modern,
+      .testimonial-slider,
+      .project-slider {
+        max-width: 98vw;
+        min-height: 0;
+        padding: 0 0.5rem;
+      }
+      .project-slide,
+      .testimonial-slide,
+      .project-slider .card {
+        padding: 1.2rem 0.5rem;
+        font-size: 0.98rem;
+      }
+      .project-photo,
+      .testimonial-photo {
+        width: 90px;
+        height: 60px;
+      }
+      .project-slider-btn,
+      .slider-btn {
+        width: 38px;
+        height: 38px;
+        font-size: 1.1rem;
+      }
+      .container,
+      .about-section {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+      }
+      h2, h3 {
+        font-size: 1.1rem;
+      }
+    }
+
+    /* Optional: make body background fit mobile */
+    @media (max-width: 400px) {
+      body {
+        font-size: 0.95rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1214,7 +1257,6 @@
     timer = setInterval(nextSlide, 6000);
   });
   </script>
-  <script>
   document.addEventListener('DOMContentLoaded', function() {
     var contact = document.getElementById('contact');
     if (contact) {
