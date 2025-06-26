@@ -13,22 +13,22 @@
         "Segoe UI Emoji", "Segoe UI Symbol";
 
       /* Light theme colors */
-      --color-bg: #ffffff;
-      --color-text: #6b7280;
+      --color-bg: #fff;
+      --color-text: #222;
       --color-heading: #111827;
-      --color-primary: #111827;
-      --color-primary-hover: #333333;
-      --color-card-bg: #ffffff;
-      --color-card-shadow: rgba(0, 0, 0, 0.05);
+      --color-primary: #007bff;
+      --color-primary-hover: #0056b3;
+      --color-card-bg: #f9f9f9;
+      --color-card-shadow: #0001;
       --color-border: #e5e7eb;
 
       /* Dark theme colors (overridden in .dark) */
-      --dark-bg: #121212;
-      --dark-text: #d1d5db;
+      --dark-bg: #181a1b;
+      --dark-text: #f1f1f1;
       --dark-heading: #f9fafb;
-      --dark-primary: #ef15c4;
-      --dark-card-bg: #1e1e2f;
-      --dark-card-shadow: rgba(239, 21, 196, 0.15);
+      --dark-primary: #c600ca;
+      --dark-card-bg: #23272b;
+      --dark-card-shadow: #0006;
       --dark-border: #2c2c3d;
 
       /* Sizes and spacing */
@@ -60,12 +60,11 @@
       font-family: var(--font-sans);
       font-size: 18px;
       line-height: 1.6;
-      background-color: var(--color-bg);
+      background: var(--color-bg);
       color: var(--color-text);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      transition: background-color var(--transition-speed) ease,
-                  color var(--transition-speed) ease;
+      transition: background 0.3s, color 0.3s;
       min-width: 1200px !important; /* Sesuaikan dengan lebar container Anda */
       overflow-x: auto !important;   /* Memungkinkan scroll horizontal jika diperlukan */
     }
@@ -726,6 +725,7 @@
       <button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle light/dark mode" id="theme-toggle" tabindex="2">
         🌙
       </button>
+      <span id="datetime" style="margin-left:1rem; font-size:1rem; color:#000; font-weight:bold;"></span>
     </nav>
   </header>
 
@@ -1169,7 +1169,7 @@
               <li style="display: flex; align-items: center; gap: 0.5rem;">
                 <span style="display: inline-flex; width: 22px; height: 22px;">
                   <!-- Instagram SVG -->
-                  <svg viewBox="0 0 24 24" width="22" height="22" fill="#E4405F" aria-hidden="true"><path d="M12 2.2c3.2 0 3.584.012 4.85.07 1.17.056 1.97.24 2.43.41.59.22 1.01.48 1.45.92.44.44.7.86.92 1.45.17.46.354 1.26.41 2.43.058 1.266.07 1.65.07 4.85s-.012 3.584-.07 4.85c-.056 1.17-.24 1.97-.41 2.43-.22.59-.48 1.01-.92 1.45-.44.44-.86.7-1.45.92-.46.17-1.26.354-2.43.41-1.266.058-1.65.07-4.85.07s-3.584-.012-4.85-.07c-1.17-.056-1.97-.24-2.43-.41-.59-.22-1.01-.48-1.45-.92-.44-.44-.7-.86-.92-1.45-.17-.46-.354-1.26-.41-2.43C2.212 15.634 2.2 15.25 2.2 12s.012-3.584.07-4.85c.059-1.29.25-2.18.53-2.95.29-.8.67-1.48 1.34-2.15.67-.67 1.35-1.05 2.15-1.34.77-.28 1.66-.47 2.95-.53C8.416 2.212 8.8 2.2 12 2.2zm0-2.2C8.736 0 8.332.012 7.052.07c-1.29.059-2.18.25-2.95.53-.8.29-1.48.67-2.15 1.34-.67.67-1.05 1.35-1.34 2.15-.28.77-.47 1.66-.53 2.95C.012 8.332 0 8.736 0 12c0 3.264.012 3.668.07 4.948.059 1.29.25 2.18.53 2.95.29.8.67 1.48 1.34 2.15.67.67 1.35 1.05 2.15 1.34.77.28 1.66.47 2.95.53C8.332 23.988 8.736 24 12 24s3.668-.012 4.948-.07c1.29-.059 2.18-.25 2.95-.53.8-.29 1.48-.67 2.15-1.34.67-.67 1.05-1.35 1.34-2.15.28-.77.47-1.66.53-2.95.058-1.28.07-1.684.07-4.948s-.012-3.668-.07-4.948c-.059-1.29-.25-2.18-.53-2.95-.29-.8-.67-1.48-1.34-2.15-.67-.67-1.35-1.05-2.15-1.34-.77-.28-1.66-.47-2.95-.53C15.668.012 15.264 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm7.844-10.406a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg>
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="#E4405F" aria-hidden="true"><path d="M12 2.2c3.2 0 3.584.012 4.85.07 1.17.056 1.97.24 2.43.41.59.22 1.01.48 1.45.92.44.44.7.86.92 1.45.17.46.354 1.26.41 2.43.058 1.266.07 1.65.07 4.85s-.012 3.584-.07 4.85c-.056 1.17-.24 1.97-.41 2.43-.22.59-.48 1.01-.92 1.45-.44.44-.86.7-1.45.92-.46.53-.08 1.65-.67 1.89-1.32.23-.65.23-1.2.16-1.32-.07-.12-.25-.18-.53-.32z"/></svg>
                 </span>
                 <a href="https://www.instagram.com/kevinaja.virtualassistant/" target="_blank">@kevinaja.virtualassistant</a>
               </li>
@@ -1205,7 +1205,7 @@
       const themeToggle = document.getElementById('theme-toggle');
       const rootElement = document.documentElement;
 
-      // Initialize theme based on localStorage or system preference
+          // Initialize theme based on localStorage or system preference
       const storedTheme = localStorage.getItem('theme');
       function applyTheme(theme) {
         if (theme === 'dark') {
@@ -1328,6 +1328,24 @@
     }
   });
   </script>
+  <script>
+function updateDateTime() {
+  const dt = new Date();
+  const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+  const dateStr = dt.toLocaleDateString(undefined, options);
+  const timeStr = dt.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  document.getElementById('datetime').textContent = `${dateStr} ${timeStr}`;
+}
+setInterval(updateDateTime, 1000);
+updateDateTime();
+
+const themeToggle = document.querySelector('.theme-toggle');
+themeToggle.addEventListener('click', function() {
+  document.body.classList.toggle('dark-mode');
+  this.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+  updateDateTime();
+});
+</script>
 <img src="LION.gif" alt="Astronaut Right"
   style="position: fixed; right: 0; top: 70%; width: 150px; max-width:  100vw; z-index: 1000; pointer-events: none; opacity: 0.85; object-fit: cover; object-position: right; transform: scaleX(1);" />
 </body>
